@@ -1,8 +1,10 @@
 export type SpendingCategory =
   | "groceries"
+  | "fuel"
   | "dining"
   | "transport"
   | "travel"
+  | "subscriptions"
   | "entertainment"
   | "other";
 
@@ -20,10 +22,21 @@ export interface RewardsCard {
   highlight: string;
 }
 
-export type SpendingSummary = Record<SpendingCategory, number>;
+/** Sparse: missing categories are treated as zero spend. */
+export type SpendingSummary = Partial<Record<SpendingCategory, number>>;
 
 export interface CardRewardEstimate {
   card: RewardsCard;
   grossAnnualRewards: number;
   netAnnualRewards: number;
 }
+
+/** Categories surfaced in the interactive scenario form. */
+export type ScenarioCategory =
+  | "groceries"
+  | "fuel"
+  | "dining"
+  | "subscriptions"
+  | "other";
+
+export type MonthlySpending = Record<ScenarioCategory, number>;

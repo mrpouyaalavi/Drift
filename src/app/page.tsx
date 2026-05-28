@@ -1,3 +1,4 @@
+import { SpendingScenario } from "@/components/SpendingScenario";
 import { sampleAnnualSpending, sampleCards } from "@/data/cards";
 import { formatAUD, rankCards, totalAnnualSpend } from "@/lib/rewards";
 
@@ -46,6 +47,8 @@ export default function HomePage() {
         </p>
       </section>
 
+      <SpendingScenario />
+
       <section className="mb-12">
         <h2 className="mb-4 text-lg font-medium text-zinc-200">
           Sample spending profile
@@ -60,7 +63,7 @@ export default function HomePage() {
                 {cat}
               </p>
               <p className="mt-1 font-medium text-zinc-100">
-                {formatAUD(amount)}
+                {formatAUD(amount ?? 0)}
               </p>
             </div>
           ))}

@@ -30,6 +30,20 @@ src/
   types/       # Shared TypeScript types
 ```
 
+## Interactive spending scenario
+
+The home page now includes a **Spending scenario** section where you can
+adjust your assumed monthly spend across five everyday categories —
+Groceries, Fuel, Dining, Subscriptions, and Other — using number inputs
+and sliders. As values change, Drift recalculates live:
+
+- Total monthly and annual spend
+- Estimated annual rewards on the best-matched card
+- Estimated value missed each year if that same spend went on debit
+
+Estimates use the sample earn rates in `src/data/cards.ts` and a
+simplified 1¢-per-point value assumption.
+
 ## Roadmap
 
 - CSV transaction upload
