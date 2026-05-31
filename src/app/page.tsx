@@ -12,10 +12,10 @@ export default function HomePage() {
           The rewards you&apos;re leaving on the table — every single week.
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400">
-          Most Australians have a rewards card, but still tap debit out of
-          habit. Drift turns that habit into a number — the estimated annual
-          value you&apos;d earn by routing the same everyday spending through
-          an eligible rewards card instead.
+          Many Australians use rewards cards, but still tap debit out of habit
+          for everyday spending. Drift turns that habit into a number — the
+          estimated annual value you&apos;d earn by routing the same spending
+          through an eligible rewards card instead.
         </p>
 
         <div className="mt-7 grid gap-3 text-sm text-zinc-400 sm:grid-cols-3">
@@ -26,7 +26,7 @@ export default function HomePage() {
           />
           <HowItWorksStep
             n={2}
-            title="See the missed value"
+            title="See the net benefit"
             body="Drift ranks sample cards by net annual rewards on that profile."
           />
           <HowItWorksStep

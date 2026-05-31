@@ -60,8 +60,8 @@ export function SpendingScenario() {
             </h2>
             <p className="mt-1 max-w-xl text-sm text-zinc-400">
               Drag the sliders or type a number to match your household. Drift
-              re-estimates the value you&apos;d earn on a rewards card — and
-              how much of that you&apos;d miss on debit — instantly.
+              re-estimates the rewards value you&apos;d earn on a card and the
+              net benefit vs paying with debit — instantly.
             </p>
           </div>
           <button
@@ -126,9 +126,9 @@ export function SpendingScenario() {
             accent
           />
           <StatCard
-            label="Missed on debit / yr"
+            label="Net benefit vs debit / yr"
             value={formatAUD(view.missed)}
-            hint="What you&rsquo;d leave on the table if this spend went on debit."
+            hint="Estimated rewards value after the card&rsquo;s annual fee, compared with earning no rewards on debit."
             accent
           />
         </div>
@@ -164,7 +164,7 @@ export function SpendingScenario() {
             value={formatAUD(view.best.card.annualFee)}
           />
           <StatCard
-            label="Base earn rate"
+            label="Base reward return"
             value={formatRate(view.best.card.rates.base)}
           />
         </div>

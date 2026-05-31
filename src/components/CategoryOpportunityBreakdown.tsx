@@ -16,8 +16,9 @@ export function CategoryOpportunityBreakdown({ opportunities, cardName }: Props)
           Where your rewards come from
         </h2>
         <p className="mt-1 text-sm text-zinc-400">
-          Annual rewards value per category under the{" "}
-          <span className="text-zinc-200">{cardName}</span>, biggest first.
+          Estimated annual rewards by category using the current best-match
+          card (<span className="text-zinc-200">{cardName}</span>), sorted
+          biggest first.
           {top && top.annualReward > 0 && (
             <>
               {" "}

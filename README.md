@@ -25,7 +25,8 @@ and immediately sees:
 
 - their monthly and annual spend
 - the estimated annual rewards value the best-matched card would earn
-- how much of that value they&rsquo;d miss if the same spend went on debit
+- the **net benefit vs debit** — rewards after the card&rsquo;s annual fee,
+  compared with earning no rewards on debit
 - a category-level breakdown showing where the biggest opportunity is
 - a side-by-side ranking of sample cards by **net** annual rewards
 
@@ -36,7 +37,7 @@ Everything updates live as the sliders move.
 - **Interactive scenario** — sliders + number inputs for five categories,
   live recalculation.
 - **Best-card recommendation** with net rewards, gross rewards, annual fee
-  and base earn rate clearly broken out.
+  and base reward return clearly broken out.
 - **Category opportunity breakdown** — sorted from highest to lowest
   estimated annual rewards contribution.
 - **Card comparison** ranked by net annual rewards, with a "Best match"
@@ -92,8 +93,8 @@ src/
 - **Sample cards and earn rates are mocked** for the prototype. Three
   AU-flavoured cards roughly representative of common archetypes (frequent
   flyer, base-earn premium, low-fee everyday).
-- **Debit is assumed to earn zero rewards** — so "missed on debit" equals
-  the best card's net annual rewards.
+- **Debit is assumed to earn zero rewards** — so "net benefit vs debit"
+  equals the best card's net annual rewards.
 - **Best card = highest net annual rewards** (gross rewards minus annual
   fee). No modelling of sign-up bonuses, intro offers, or points caps.
 
