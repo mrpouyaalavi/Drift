@@ -1,28 +1,25 @@
+import { CATEGORY_LABELS } from "@/data/cards";
 import type {
   CardRewardEstimate,
+  CategoryOpportunity,
   MonthlySpending,
   RewardsCard,
-  ScenarioCategory,
   SpendingCategory,
   SpendingSummary,
 } from "@/types";
 
+const CATEGORIES = Object.keys(CATEGORY_LABELS) as SpendingCategory[];
+
 /**
  * Estimate annual rewards for a single card given an annual spending summary.
- * Rates are decimals (e.g. 0.02 = 2% back). Categories without a specific
- * rate fall back to the card's `base` rate. Missing categories count as zero.
+ * Categories without an explicit rate fall back to the card's `base` rate.
  */
 export function estimateAnnualRewards(
   card: RewardsCard,
   spending: SpendingSummary,
 ): CardRewardEstimate {
-  const entries = Object.entries(spending) as [
-    SpendingCategory,
-    number | undefined,
-  ][];
-
-  const gross = entries.reduce((total, [category, amount]) => {
-    if (!amount) return total;
+  const gross = CATEGORIES.reduce((total, category) => {
+    const amount = spending[category];
     const rate = card.rates[category] ?? card.rates.base;
     return total + amount * rate;
   }, 0);
@@ -34,6 +31,7 @@ export function estimateAnnualRewards(
   };
 }
 
+/** Rank a list of cards by **net** annual rewards (after the annual fee). */
 export function rankCards(
   cards: RewardsCard[],
   spending: SpendingSummary,
@@ -43,28 +41,16 @@ export function rankCards(
     .sort((a, b) => b.netAnnualRewards - a.netAnnualRewards);
 }
 
-export function totalAnnualSpend(spending: SpendingSummary): number {
-  return Object.values(spending).reduce<number>(
-    (sum, n) => sum + (n ?? 0),
-    0,
-  );
+export function totalSpend(spending: SpendingSummary | MonthlySpending): number {
+  return CATEGORIES.reduce((sum, c) => sum + spending[c], 0);
 }
 
-/** Map the scenario form's 5 monthly categories to an annual SpendingSummary. */
-export function monthlyScenarioToAnnual(
-  monthly: MonthlySpending,
-): SpendingSummary {
-  return {
-    groceries: monthly.groceries * 12,
-    fuel: monthly.fuel * 12,
-    dining: monthly.dining * 12,
-    subscriptions: monthly.subscriptions * 12,
-    other: monthly.other * 12,
-  };
-}
-
-export function totalMonthlySpend(monthly: MonthlySpending): number {
-  return Object.values(monthly).reduce((sum, n) => sum + n, 0);
+/** Multiply every category by 12 to project a monthly profile to a year. */
+export function monthlyToAnnual(monthly: MonthlySpending): SpendingSummary {
+  return CATEGORIES.reduce<SpendingSummary>((acc, c) => {
+    acc[c] = monthly[c] * 12;
+    return acc;
+  }, {} as SpendingSummary);
 }
 
 /**
@@ -76,18 +62,46 @@ export function missedValueOnDebit(best: CardRewardEstimate): number {
   return Math.max(0, best.netAnnualRewards);
 }
 
-export const SCENARIO_CATEGORY_LABELS: Record<ScenarioCategory, string> = {
-  groceries: "Groceries",
-  fuel: "Fuel",
-  dining: "Dining",
-  subscriptions: "Subscriptions",
-  other: "Other everyday spend",
-};
+/**
+ * For each category, compute the annual rewards value it contributes under
+ * the given card. Sorted descending so the biggest opportunity comes first.
+ */
+export function categoryOpportunities(
+  monthly: MonthlySpending,
+  card: RewardsCard,
+): CategoryOpportunity[] {
+  return CATEGORIES.map<CategoryOpportunity>((category) => {
+    const monthlyAmount = monthly[category];
+    const annual = monthlyAmount * 12;
+    const rate = card.rates[category] ?? card.rates.base;
+    return {
+      category,
+      label: CATEGORY_LABELS[category],
+      monthly: monthlyAmount,
+      annual,
+      annualReward: annual * rate,
+    };
+  }).sort((a, b) => b.annualReward - a.annualReward);
+}
 
-const aud = new Intl.NumberFormat("en-AU", {
+// ──────────────────────────────────────────────────────────────────────────────
+// Formatting
+
+const audFormatter = new Intl.NumberFormat("en-AU", {
   style: "currency",
   currency: "AUD",
+  minimumFractionDigits: 0,
   maximumFractionDigits: 0,
 });
 
-export const formatAUD = (n: number) => aud.format(n);
+/** Single source of truth for AUD currency strings (e.g. `$1,630`). */
+export const formatAUD = (n: number): string =>
+  audFormatter.format(Math.round(Number.isFinite(n) ? n : 0));
+
+const percentFormatter = new Intl.NumberFormat("en-AU", {
+  style: "percent",
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 2,
+});
+
+export const formatRate = (n: number): string => percentFormatter.format(n);
