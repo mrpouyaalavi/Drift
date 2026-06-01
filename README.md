@@ -25,7 +25,7 @@ and immediately sees:
 
 - their monthly and annual spend
 - the estimated annual rewards value the best-matched card would earn
-- the **net benefit vs debit** — rewards after the card&rsquo;s annual fee,
+- the **net benefit vs debit** — rewards after the card's annual fee,
   compared with earning no rewards on debit
 - a category-level breakdown showing where the biggest opportunity is
 - a side-by-side ranking of sample cards by **net** annual rewards
@@ -46,6 +46,32 @@ Everything updates live as the sliders move.
   *not* model (interest, eligibility, points caps, personal circumstances).
 - Dark fintech aesthetic, accessible labels, keyboard-navigable.
 
+## Design system
+
+Visual tokens are aligned to the supplied Open / Open.money design-system
+reference (`Design System Reference [For Intern].fig`). Key tokens:
+
+- **Background** pure black `#000000`, **surface** `#1B1B1A`, **surface-muted**
+  `#121211`, **border** `#383C3F` (highlight `#F2AC59`).
+- **Brand gold** `#F2AC59` (hover `#F6BD73`) for rewards / "healthy" emphasis,
+  plus a hotter **`#FD6422`** for "missed value" — mirroring the system's
+  savings motif, used here on the *Net benefit vs debit* metric. No purple.
+- **Three-tier text**: primary `#FFFFFF`, secondary `#B8B8B8`, muted `#7A7A7A`.
+- **Buttons** follow the system convention (primary = solid white pill,
+  secondary = bordered pill), and **captions** are uppercase + letter-spaced
+  (~0.14em).
+
+Tokens are centralised in `tailwind.config.ts` (semantic colours, radii,
+caption tracking) and reusable `.btn-primary` / `.btn-secondary` / `.caption`
+classes live in `src/app/globals.css`, so styling is consistent rather than
+scattered as one-off hex through JSX.
+
+> The `.fig` file is a ZIP whose `canvas.fig` payload is Figma's proprietary,
+> compressed Kiwi binary, so exact vector data and the precise typeface could
+> not be extracted offline. Tokens above were read from the style-guide and
+> component screenshots; typography uses a modern system-sans stack as an
+> acceptable stand-in.
+
 ## Tech stack
 
 - Next.js 15 (App Router)
@@ -64,9 +90,12 @@ npm run dev
 Open <http://localhost:3000>.
 
 ```bash
-npm run build   # production build
-npm run lint    # lint
+npm run build   # production build (also type-checks and lints the app)
 ```
+
+> Standalone ESLint is not configured (`next lint` would launch an interactive
+> setup), but `next build` runs Next.js's built-in linting and type validation,
+> which pass cleanly.
 
 ## Project structure
 
@@ -108,7 +137,20 @@ pay your balance in full every month — interest at 18–22% wipes out the
 rewards quickly. Always check the current Product Disclosure Statement
 and Target Market Determination before applying.
 
-## What I&rsquo;d improve next
+## Known limitations
+
+- **Mock data only.** Three hand-written sample cards and a flat ~1¢/point
+  value — not a live or comprehensive card market.
+- **No live financial APIs**, no bank feeds, no persistence. All state lives
+  in the browser for the current session.
+- **Simplified earn model.** No points caps, tiers, sign-up bonuses, intro
+  rates, interest, or eligibility logic.
+- **Typeface is a stand-in.** Exact Figma font could not be extracted offline
+  (see Design system note).
+- **No automated tests yet** — `rewards.ts` is pure and ready for unit tests,
+  but none are wired up.
+
+## What I'd improve next
 
 - **CSV / bank-feed import** so the user doesn't have to estimate spend
   manually — start with a CSV drop zone, then explore Basiq for live feeds.
@@ -125,8 +167,8 @@ and Target Market Determination before applying.
 - **Accessibility & motion polish** — proper focus ring tokens, prefers-
   reduced-motion handling, screen-reader friendly live regions for the
   scenario stats.
-- **Tests** — `vitest` unit tests around `rewards.ts` (it&rsquo;s
-  intentionally pure to make this easy).
+- **Tests** — `vitest` unit tests around `rewards.ts` (it's intentionally
+  pure to make this easy).
 
 ## Note
 

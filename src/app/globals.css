@@ -4,12 +4,17 @@
 
 :root {
   color-scheme: dark;
+  /* Design-system tokens (Open.money reference) */
+  --background: #000000;
+  --surface: #1b1b1a;
+  --border: #383c3f;
+  --accent: #f2ac59;
 }
 
 html,
 body {
-  background-color: #0a0b0f;
-  color: #e6e7eb;
+  background-color: var(--background);
+  color: #ffffff;
 }
 
 body {
@@ -18,13 +23,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Range slider polish — dark fintech */
+@layer components {
+  /* Primary action — white pill, dark text (design-system convention) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background transition hover:opacity-90;
+  }
+
+  /* Secondary action — transparent with border */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent/60 hover:text-accentHover;
+  }
+
+  /* Uppercase, letter-spaced caption motif */
+  .caption {
+    @apply text-[11px] font-medium uppercase tracking-caption text-subtle;
+  }
+}
+
+/* Range slider polish — aligned to brand accent */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 4px;
   border-radius: 9999px;
-  background: #1f2230;
+  background: var(--border);
   outline: none;
 }
 
@@ -34,29 +56,29 @@ input[type="range"]::-webkit-slider-thumb {
   width: 16px;
   height: 16px;
   border-radius: 9999px;
-  background: #7c5cff;
-  border: 2px solid #0a0b0f;
-  box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.4);
+  background: var(--accent);
+  border: 2px solid var(--background);
+  box-shadow: 0 0 0 1px rgba(242, 172, 89, 0.4);
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 120ms ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.18);
+  box-shadow: 0 0 0 4px rgba(242, 172, 89, 0.18);
 }
 
 input[type="range"]::-moz-range-thumb {
   width: 16px;
   height: 16px;
   border-radius: 9999px;
-  background: #7c5cff;
-  border: 2px solid #0a0b0f;
+  background: var(--accent);
+  border: 2px solid var(--background);
   cursor: pointer;
 }
 
 input[type="range"]:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.32);
+  box-shadow: 0 0 0 4px rgba(242, 172, 89, 0.32);
 }
 
 /* Number inputs: strip spinners for a cleaner look */
