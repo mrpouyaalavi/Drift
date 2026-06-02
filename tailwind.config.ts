@@ -19,10 +19,13 @@ const config: Config = {
         subtle: "#7A7A7A", // captions, hints, faint text
 
         surface: "#1B1B1A",
+        surfaceRaised: "#211F1C",
+        surfaceWarm: "#24231F",
         surfaceMuted: "#121211",
         surfaceError: "#380314",
 
         border: "#383C3F",
+        borderWarm: "rgba(242, 172, 89, 0.18)",
         borderHighlight: "#F2AC59",
 
         // Brand / accent

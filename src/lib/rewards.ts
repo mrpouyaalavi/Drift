@@ -10,18 +10,15 @@ import type {
 
 const CATEGORIES = Object.keys(CATEGORY_LABELS) as SpendingCategory[];
 
-/**
- * Estimate annual rewards for a single card given an annual spending summary.
- * Categories without an explicit rate fall back to the card's `base` rate.
- */
+// Work out a year's rewards for one card. Categories without their own rate
+// fall back to the card's base rate.
 export function estimateAnnualRewards(
   card: RewardsCard,
   spending: SpendingSummary,
 ): CardRewardEstimate {
   const gross = CATEGORIES.reduce((total, category) => {
-    const amount = spending[category];
     const rate = card.rates[category] ?? card.rates.base;
-    return total + amount * rate;
+    return total + spending[category] * rate;
   }, 0);
 
   return {
@@ -31,7 +28,7 @@ export function estimateAnnualRewards(
   };
 }
 
-/** Rank a list of cards by **net** annual rewards (after the annual fee). */
+// Best card = best *net* return, so a fat annual fee can't win on gross alone.
 export function rankCards(
   cards: RewardsCard[],
   spending: SpendingSummary,
@@ -45,7 +42,12 @@ export function totalSpend(spending: SpendingSummary | MonthlySpending): number 
   return CATEGORIES.reduce((sum, c) => sum + spending[c], 0);
 }
 
-/** Multiply every category by 12 to project a monthly profile to a year. */
+// Keep a number inside [min, max]; junk (NaN/Infinity) becomes min.
+export function clamp(value: number, min: number, max: number): number {
+  if (!Number.isFinite(value)) return min;
+  return Math.min(max, Math.max(min, value));
+}
+
 export function monthlyToAnnual(monthly: MonthlySpending): SpendingSummary {
   return CATEGORIES.reduce<SpendingSummary>((acc, c) => {
     acc[c] = monthly[c] * 12;
@@ -53,55 +55,44 @@ export function monthlyToAnnual(monthly: MonthlySpending): SpendingSummary {
   }, {} as SpendingSummary);
 }
 
-/**
- * Value missed if the same spend went on debit instead of the best rewards card.
- * Debit earns ~0 rewards, so the gap is the best card's net annual rewards
- * (clamped at zero — a card whose fee exceeds rewards isn't an improvement).
- */
+// Debit earns nothing, so the "you'd miss this on debit" figure is just the
+// best card's net return. Floor at zero — a fee-heavy card isn't a saving.
 export function missedValueOnDebit(best: CardRewardEstimate): number {
   return Math.max(0, best.netAnnualRewards);
 }
 
-/**
- * For each category, compute the annual rewards value it contributes under
- * the given card. Sorted descending so the biggest opportunity comes first.
- */
+// Per-category breakdown for the chosen card, biggest opportunity first.
 export function categoryOpportunities(
   monthly: MonthlySpending,
   card: RewardsCard,
 ): CategoryOpportunity[] {
   return CATEGORIES.map<CategoryOpportunity>((category) => {
-    const monthlyAmount = monthly[category];
-    const annual = monthlyAmount * 12;
+    const annual = monthly[category] * 12;
     const rate = card.rates[category] ?? card.rates.base;
     return {
       category,
       label: CATEGORY_LABELS[category],
-      monthly: monthlyAmount,
+      monthly: monthly[category],
       annual,
       annualReward: annual * rate,
     };
   }).sort((a, b) => b.annualReward - a.annualReward);
 }
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Formatting
-
-const audFormatter = new Intl.NumberFormat("en-AU", {
+// One formatter, reused everywhere, so currency always looks the same.
+const aud = new Intl.NumberFormat("en-AU", {
   style: "currency",
   currency: "AUD",
-  minimumFractionDigits: 0,
   maximumFractionDigits: 0,
 });
 
-/** Single source of truth for AUD currency strings (e.g. `$1,630`). */
 export const formatAUD = (n: number): string =>
-  audFormatter.format(Math.round(Number.isFinite(n) ? n : 0));
+  aud.format(Math.round(Number.isFinite(n) ? n : 0));
 
-const percentFormatter = new Intl.NumberFormat("en-AU", {
+const percent = new Intl.NumberFormat("en-AU", {
   style: "percent",
   minimumFractionDigits: 1,
   maximumFractionDigits: 2,
 });
 
-export const formatRate = (n: number): string => percentFormatter.format(n);
+export const formatRate = (n: number): string => percent.format(n);

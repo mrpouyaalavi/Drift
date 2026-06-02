@@ -4,8 +4,7 @@
 
 :root {
   color-scheme: dark;
-  /* Design-system tokens (Open.money reference) */
-  --background: #000000;
+  --background: #060605;
   --surface: #1b1b1a;
   --border: #383c3f;
   --accent: #f2ac59;
@@ -17,30 +16,56 @@ body {
   color: #ffffff;
 }
 
+/* The page isn't flat black — a warm amber glow sits behind the hero and a
+   couple of soft charcoal pools give the dark some depth. Kept low-alpha so
+   text stays crisp. */
 body {
   font-feature-settings: "ss01", "cv11", "tnum";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(58rem 34rem at 50% -12%, rgba(242, 172, 89, 0.1), transparent 62%),
+    radial-gradient(80rem 52rem at 88% 2%, rgba(36, 35, 31, 0.55), transparent 55%),
+    radial-gradient(72rem 60rem at 0% 28%, rgba(27, 27, 26, 0.5), transparent 60%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 @layer components {
-  /* Primary action — white pill, dark text (design-system convention) */
+  /* Big content panels. The faint vertical gradient makes them read as
+     lit-from-above rather than flat fills. */
+  .surface-panel {
+    @apply rounded-3xl border border-border/80 bg-gradient-to-b from-surfaceRaised to-[#141312];
+  }
+
+  /* Smaller cards (hero steps, comparison rows) — same idea, tighter radius. */
+  .surface-card {
+    @apply rounded-2xl border border-border/70 bg-gradient-to-b from-[#1e1d1b] to-[#151412];
+  }
+
+  /* White pill — the system's primary action. */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-5 py-2 text-sm font-medium text-background transition hover:opacity-90;
   }
 
-  /* Secondary action — transparent with border */
+  /* Bordered pill — secondary action. */
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition hover:border-accent/60 hover:text-accentHover;
   }
 
-  /* Uppercase, letter-spaced caption motif */
+  /* Short uppercase eyebrows — the wide tracking reads as a label, not body. */
   .caption {
     @apply text-[11px] font-medium uppercase tracking-caption text-subtle;
   }
+
+  /* Same, but for longer labels where wide tracking gets hard to read. */
+  .caption-tight {
+    @apply text-[11px] font-medium uppercase tracking-[0.06em] text-subtle;
+  }
 }
 
-/* Range slider polish — aligned to brand accent */
+/* Sliders — themed to the brand gold, since the native track is ugly. */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -81,7 +106,7 @@ input[type="range"]:focus-visible::-webkit-slider-thumb {
   box-shadow: 0 0 0 4px rgba(242, 172, 89, 0.32);
 }
 
-/* Number inputs: strip spinners for a cleaner look */
+/* Hide the number-input spinners — they clash with the right-aligned $ fields. */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;

@@ -9,6 +9,7 @@ import {
 } from "@/data/cards";
 import {
   categoryOpportunities,
+  clamp,
   formatAUD,
   formatRate,
   missedValueOnDebit,
@@ -40,8 +41,10 @@ export function SpendingScenario() {
     };
   }, [monthly]);
 
+  // Clamp every input to its category's [0, max] range so out-of-range values
+  // (e.g. a typed 92014 against a $1,500 slider) can never reach the maths.
   const update = (cat: SpendingCategory, value: number) => {
-    const safe = Number.isFinite(value) ? Math.max(0, Math.round(value)) : 0;
+    const safe = Math.round(clamp(value, 0, CATEGORY_SLIDER_MAX[cat]));
     setMonthly((prev) => ({ ...prev, [cat]: safe }));
   };
 
@@ -49,10 +52,7 @@ export function SpendingScenario() {
 
   return (
     <>
-      <section
-        id="scenario"
-        className="mb-12 rounded-3xl border border-border bg-surface p-6 sm:p-8"
-      >
+      <section id="scenario" className="surface-panel mb-12 p-6 sm:p-8">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="caption mb-2">Spending scenario</p>
@@ -74,7 +74,7 @@ export function SpendingScenario() {
           {CATEGORIES.map((cat) => (
             <div key={cat}>
               <div className="mb-1.5 flex items-baseline justify-between gap-2">
-                <label htmlFor={`scenario-${cat}`} className="caption">
+                <label htmlFor={`scenario-${cat}`} className="caption-tight">
                   {CATEGORY_LABELS[cat]}
                 </label>
                 <div className="flex items-center gap-1 text-sm text-muted">
@@ -84,11 +84,12 @@ export function SpendingScenario() {
                     type="number"
                     inputMode="numeric"
                     min={0}
+                    max={CATEGORY_SLIDER_MAX[cat]}
                     step={10}
                     value={monthly[cat]}
                     onChange={(e) => update(cat, Number(e.target.value))}
                     className="w-20 rounded-lg border border-border bg-surfaceMuted px-2 py-1 text-right text-sm tabular-nums text-foreground outline-none transition focus:border-borderHighlight"
-                    aria-label={`${CATEGORY_LABELS[cat]} monthly spend in AUD`}
+                    aria-label={`${CATEGORY_LABELS[cat]} monthly spend in AUD (max ${CATEGORY_SLIDER_MAX[cat]})`}
                   />
                   <span className="text-xs text-subtle">/mo</span>
                 </div>
@@ -129,8 +130,9 @@ export function SpendingScenario() {
         </div>
       </section>
 
-      {/* Recommendation */}
-      <section className="mb-12 rounded-3xl border border-accent/40 bg-gradient-to-br from-accentMuted/25 via-surface to-surface p-6 sm:p-8">
+      {/* The standout card — warm gold wash so the recommendation reads as the
+          payoff of the whole exercise. */}
+      <section className="mb-12 rounded-3xl border border-accent/45 bg-gradient-to-br from-accentMuted/30 via-surfaceWarm to-surface p-6 shadow-[0_0_60px_-20px_rgba(242,172,89,0.25)] sm:p-8">
         <div className="mb-3 flex items-center gap-2">
           <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-caption text-accent">
             Best match
@@ -206,10 +208,10 @@ export function SpendingScenario() {
           {view.ranked.map((est, i) => (
             <li
               key={est.card.id}
-              className={`rounded-2xl border bg-surface p-5 transition ${
+              className={`surface-card p-5 transition ${
                 i === 0
-                  ? "border-accent/60 shadow-[0_0_0_1px_rgba(242,172,89,0.25)]"
-                  : "border-border"
+                  ? "!border-accent/55 shadow-[0_0_0_1px_rgba(242,172,89,0.22)]"
+                  : ""
               }`}
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -229,15 +231,15 @@ export function SpendingScenario() {
                     {est.card.highlight}
                   </p>
                 </div>
-                <div className="grid shrink-0 grid-cols-2 gap-x-6 gap-y-1 text-right sm:grid-cols-1">
-                  <div>
-                    <p className="caption">Net / yr</p>
+                <div className="flex shrink-0 gap-8 sm:w-36 sm:flex-col sm:gap-3 sm:text-right">
+                  <div className="sm:flex sm:items-baseline sm:justify-between sm:gap-3">
+                    <p className="caption-tight">Net / yr</p>
                     <p className="text-lg font-semibold tabular-nums text-foreground">
                       {formatAUD(est.netAnnualRewards)}
                     </p>
                   </div>
-                  <div>
-                    <p className="caption">Annual fee</p>
+                  <div className="sm:flex sm:items-baseline sm:justify-between sm:gap-3">
+                    <p className="caption-tight">Annual fee</p>
                     <p className="text-sm tabular-nums text-muted">
                       {formatAUD(est.card.annualFee)}
                     </p>
@@ -270,7 +272,7 @@ const TONE_CLASS: Record<StatTone, string> = {
 function StatCard({ label, value, tone = "default", hint }: StatCardProps) {
   return (
     <div>
-      <p className="caption">{label}</p>
+      <p className="caption-tight">{label}</p>
       <p
         className={`mt-1 text-xl font-semibold tabular-nums sm:text-2xl ${TONE_CLASS[tone]}`}
       >

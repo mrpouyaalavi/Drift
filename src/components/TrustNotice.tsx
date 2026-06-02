@@ -1,6 +1,6 @@
 export function TrustNotice() {
   return (
-    <section className="mb-12 rounded-3xl border border-border bg-surface/60 p-6 sm:p-8">
+    <section className="surface-panel mb-12 p-6 sm:p-8">
       <div className="mb-3 flex items-center gap-2">
         <span
           aria-hidden

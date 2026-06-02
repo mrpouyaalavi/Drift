@@ -1,6 +1,10 @@
 import type { MonthlySpending, RewardsCard, SpendingCategory } from "@/types";
 
-/** Default starting values for the interactive scenario (AUD per month). */
+// Sample cards loosely based on public AU earn rates / fees — three common
+// archetypes (frequent flyer, premium base-earn, low-fee everyday). Mock data,
+// not a live feed; see the README for the assumptions behind these numbers.
+
+// Where the sliders start — a fairly typical household month, in AUD.
 export const defaultMonthlyScenario: MonthlySpending = {
   groceries: 650,
   fuel: 200,
@@ -17,7 +21,7 @@ export const CATEGORY_LABELS: Record<SpendingCategory, string> = {
   other: "Other everyday spend",
 };
 
-/** Upper bound on each slider (AUD per month). */
+// Slider ceilings (AUD/month) — also the clamp applied to typed input.
 export const CATEGORY_SLIDER_MAX: Record<SpendingCategory, number> = {
   groceries: 1500,
   fuel: 600,

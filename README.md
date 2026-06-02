@@ -148,6 +148,8 @@ src/
   equals the best card's net annual rewards.
 - **Best card = highest net annual rewards** (gross rewards minus annual
   fee). No modelling of sign-up bonuses, intro offers, or points caps.
+- **Inputs are clamped** to each category's slider range (typed values are
+  bounded to `[0, max]`) so the estimate stays in a realistic range.
 
 ## Responsible credit disclaimer
 
