@@ -10,7 +10,7 @@ export function TrustNotice() {
       </div>
       <p className="text-sm leading-relaxed text-muted">
         Drift is an educational prototype. Estimates use simplified earn rates
-        and assume points are worth roughly one cent each — actual values vary
+        and assume points are worth roughly one cent each. Actual values vary
         by program, by redemption, and over time.
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -18,8 +18,8 @@ export function TrustNotice() {
         for eligibility, ongoing interest charges, late fees, foreign-
         transaction fees, sign-up bonuses, points caps, your credit score, or
         your personal financial circumstances. A rewards card only makes sense
-        if you pay your balance in full every month — high interest charges can
-        quickly outweigh any rewards value.
+        if you pay your balance in full every month, because high interest
+        charges can quickly outweigh any rewards value.
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted">
         Always check the current Product Disclosure Statement and Target

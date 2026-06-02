@@ -62,7 +62,7 @@ export function SpendingScenario() {
             <p className="mt-1 max-w-xl text-sm text-muted">
               Drag the sliders or type a number to match your household. Drift
               re-estimates the rewards value you&apos;d earn on a card and the
-              net benefit vs paying with debit — instantly.
+              net benefit vs paying with debit, instantly.
             </p>
           </div>
           <button type="button" onClick={reset} className="btn-secondary self-start">
@@ -130,9 +130,9 @@ export function SpendingScenario() {
         </div>
       </section>
 
-      {/* The standout card — warm gold wash so the recommendation reads as the
+      {/* The standout card. Warm gold wash so the recommendation reads as the
           payoff of the whole exercise. */}
-      <section className="mb-12 rounded-3xl border border-accent/45 bg-gradient-to-br from-accentMuted/30 via-surfaceWarm to-surface p-6 shadow-[0_0_60px_-20px_rgba(242,172,89,0.25)] sm:p-8">
+      <section className="surface-selected mb-12 rounded-3xl p-6 sm:p-8">
         <div className="mb-3 flex items-center gap-2">
           <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-caption text-accent">
             Best match
@@ -181,7 +181,7 @@ export function SpendingScenario() {
           <span className="text-accent">
             {formatAUD(view.best.netAnnualRewards)}
           </span>{" "}
-          per year in net rewards — assuming you pay your balance in full every
+          per year in net rewards, assuming you pay your balance in full every
           month.
         </p>
       </section>
@@ -208,11 +208,11 @@ export function SpendingScenario() {
           {view.ranked.map((est, i) => (
             <li
               key={est.card.id}
-              className={`surface-card p-5 transition ${
+              className={
                 i === 0
-                  ? "!border-accent/55 shadow-[0_0_0_1px_rgba(242,172,89,0.22)]"
-                  : ""
-              }`}
+                  ? "surface-selected rounded-2xl p-5 transition"
+                  : "surface-card p-5 transition"
+              }
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">

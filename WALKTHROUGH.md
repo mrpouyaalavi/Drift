@@ -1,107 +1,102 @@
-# Drift — Walkthrough
+# Drift: Walkthrough
 
-A short written walkthrough of the decisions behind Drift, my take-home for the
-Software Engineer Intern role at Open / Open Home Loans.
+A short write-up of the thinking behind Drift, my take-home for the Software
+Engineer Intern role at Open / Open Home Loans.
 
-- **Project type:** B — New Product Feature
-- **Brief:** 1C — Daily Spend Optimizer
-
----
+- **Project type:** B, New Product Feature
+- **Brief:** 1C, Daily Spend Optimizer
+- **Live demo:** https://drift-daily-spend-optimizer.vercel.app
 
 ## The problem I focused on
 
-Lots of people already hold a rewards credit card, but still reach for debit on
-everyday purchases out of habit. The rewards they forgo are real but invisible —
-there's no moment in their day that puts a number on it, so the behaviour never
-changes.
+Plenty of people already hold a rewards credit card but still reach for debit on
+everyday purchases out of habit. The rewards they give up are real, but they're
+invisible. Nothing in the day puts a number on them, so nobody changes anything.
 
 Brief 1C asks for a tool that makes the ongoing value of rewards-card spending
-tangible. I took "tangible" literally: the core of Drift is a single number that
+tangible. I took "tangible" literally. The core of Drift is a single number that
 moves as you describe your own spending.
 
 ## Why it matters
 
-This is a small, recurring, compounding leak. It isn't dramatic like high-
-interest debt, which is exactly why it's ignored. A tool that converts a vague
-"I should probably use my rewards card more" into "this is worth about $X a year
-to me" gives people a concrete reason to act — and does it honestly, by netting
-off the annual fee rather than quoting a flattering gross number.
+This is a small leak that recurs and compounds. It isn't dramatic like
+high-interest debt, which is exactly why people ignore it. If you can turn a
+vague "I should probably use my rewards card more" into "this is worth about
+$X a year to me," you give someone a concrete reason to act. I wanted to do that
+honestly, by netting off the annual fee instead of quoting a flattering gross
+number.
 
 ## Product approach
 
-I scoped deliberately to one screen that does one thing well:
+I kept the scope to one screen that does one job well:
 
-1. **Estimate your spend** — five everyday categories (groceries, fuel, dining,
-   subscriptions, other) with sliders and number inputs.
-2. **See the value** — live stats for monthly/annual spend, gross estimated
-   rewards, and the headline **net benefit per year** vs paying on debit.
-3. **Understand and decide** — a best-card recommendation, a category-level
-   breakdown of where the rewards come from, a ranked card comparison, and a
+1. **Estimate your spend.** Five everyday categories (groceries, fuel, dining,
+   subscriptions, other), each with a slider and a number input.
+2. **See the value.** Live figures for monthly and annual spend, gross estimated
+   rewards, and the headline net benefit per year versus paying on debit.
+3. **Understand and decide.** A best-card recommendation, a category breakdown
+   of where the rewards come from, a ranked card comparison, and a
    responsible-credit notice.
 
-Depth over breadth: rather than a thin multi-feature app, I built one flow that
-feels considered end to end.
+I'd rather ship one flow that feels considered end to end than a thin app that
+does five things halfway.
 
 ## Key product decisions
 
-- **Net, not gross, is the hero.** Cards are ranked by net annual rewards (after
-  the annual fee), and the recommendation can change as the spending profile
-  changes. A high-fee card shouldn't "win" on gross points alone.
-- **Debit = zero rewards**, so "net benefit vs debit" is simply the best card's
-  net annual rewards — an easy mental model to trust.
-- **Responsible-credit context is first-class**, not fine print. The tool
-  explicitly says it ignores interest, eligibility, points caps, and personal
-  circumstances, and that a rewards card only makes sense if you pay in full.
-- **Realistic mock data over a live API.** The team confirmed public earn-rate
-  and points-value benchmarks with sample spending were acceptable, so I used a
-  small set of AU-flavoured cards and a simple ~1¢/point valuation — clearly
-  labelled as assumptions.
+- **Net, not gross, is the headline.** Cards rank by net annual rewards (after
+  the fee), and the recommendation changes as the spending profile changes. A
+  high-fee card shouldn't win on gross points alone.
+- **Debit earns nothing**, so "net benefit" is just the best card's net annual
+  rewards. It's an easy model to trust.
+- **Responsible credit is up front**, not buried. The tool says plainly that it
+  ignores interest, eligibility, points caps, and personal circumstances, and
+  that a rewards card only makes sense if you pay in full.
+- **Realistic mock data instead of a live API.** The team confirmed that public
+  earn-rate and points-value benchmarks with sample spending were fine, so I
+  used a small set of AU-flavoured cards and a simple 1 cent per point value,
+  clearly labelled as assumptions.
 
 ## Design decisions
 
-- Aligned the UI to the supplied **Open.money / Figma design direction**: pure-
-  black background, near-black surfaces, soft borders, generous rounding, and a
-  brand-gold accent, with a hotter orange reserved for the "missed value" moment.
-- Centralised the palette as **semantic tokens** in `tailwind.config.ts` plus a
-  few reusable classes (`.btn-primary`, `.btn-secondary`, `.caption`), so the
-  look is consistent and easy to retheme rather than scattered hex.
-- Kept a clear three-tier text hierarchy and an uppercase, letter-spaced caption
-  motif to match the reference's premium, minimal tone.
+- Followed the supplied Open.money / Figma direction: a dark, warm, premium
+  look with near-black surfaces, soft borders, generous rounding, and a
+  brand-gold accent, with a hotter orange kept only for the missed-value moment.
+- Centralised the palette as semantic tokens in `tailwind.config.ts` and a few
+  reusable classes in `globals.css` (`.surface-panel`, `.surface-card`,
+  `.surface-selected`, `.btn-primary`, `.btn-secondary`, `.caption`), so the
+  look stays consistent and is easy to retheme.
+- Gave the page some depth with a faint amber glow and lit-from-above card
+  gradients, because a flat black void felt cheap.
 
 ## Engineering decisions
 
-- **Pure calculation core.** All rewards maths lives in `src/lib/rewards.ts` as
-  small pure functions (`estimateAnnualRewards`, `rankCards`,
-  `categoryOpportunities`, `monthlyToAnnual`), with a single AUD formatter as the
-  source of truth for currency strings. This keeps the logic testable and the
-  components dumb.
-- **Server Component by default.** The page is a Server Component; only the
-  interactive `SpendingScenario` is a client component and owns the scenario
-  state, so everything below it re-derives live from one source of truth.
-- **Strict TypeScript, no external UI library.** Small surface area, fast build
-  (~106 kB First Load JS), statically prerendered, ready for Vercel.
+- **Pure calculation core.** All the rewards maths sits in `src/lib/rewards.ts`
+  as small pure functions, with one AUD formatter so currency always looks the
+  same. That keeps the logic easy to reason about and the components simple.
+- **Server Component by default.** The page is a Server Component; only
+  `SpendingScenario` is a client component and it owns the state, so the
+  recommendation, breakdown, and comparison all re-derive from one source.
+- **Strict TypeScript, no UI library.** Small surface area, fast static build
+  (about 106 kB first load), ready for Vercel.
+- **Input safety.** Typed values are clamped to each category's range, so a
+  stray 99999 can't leak into the maths.
 
 ## AI-native workflow
 
-I used AI as an accelerator while keeping ownership of the decisions:
-
-- Pressure-testing scope so the prototype stayed focused on one problem.
-- Scaffolding components, the pure helpers, and token wiring — all reviewed.
-- Sweeping QA passes (stray colours, unclear labels, types, responsiveness),
-  each verified against `tsc --noEmit` and `next build`.
-- Drafting documentation, which I edited for accuracy and tone.
-
-The product framing, the calculation model, and the wording of every financial
-claim are mine.
+I used AI as an accelerator and kept the decisions myself. It helped me scaffold
+components and the pure helpers, sweep for stray colours and unclear labels,
+and draft the docs. I reviewed everything, verified each change against
+`tsc --noEmit` and `next build`, and wrote or rewrote the product framing, the
+calculation model, and the wording of every financial claim.
 
 ## What I'd do next with more time
 
-- **CSV / bank-feed import** so people don't estimate spend by hand — a CSV drop
-  zone first, then a provider like Basiq for live feeds.
-- **A real card registry** behind the existing typed schema, refreshed as offers
+- CSV or bank-feed import so people don't estimate spend by hand. A drop zone
+  first, then a provider like Basiq.
+- A real card registry behind the existing typed schema, refreshed as offers
   change, instead of three sample cards.
-- **A sensitivity view** showing how the recommendation shifts as points value
-  moves from ~0.5¢ to ~2¢, since that assumption drives the headline number.
-- **AI-assisted insight** that names the single highest-leverage change ("moving
-  fuel to Card X earns ~$84/year more").
-- **Unit tests** around `rewards.ts` — it's intentionally pure to make this easy.
+- A sensitivity view showing how the recommendation shifts as points value moves
+  from about 0.5 to 2 cents, since that assumption drives the headline number.
+- An AI insight that names the single highest-leverage change, for example
+  "moving fuel to Card X earns about $84 a year more."
+- Unit tests around `rewards.ts`, which is kept pure to make that easy.

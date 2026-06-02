@@ -7,7 +7,7 @@ export default function HomePage() {
       <header className="mb-14 sm:mb-20">
         <p className="caption mb-4 text-accent">Drift · Daily spend optimizer</p>
         <h1 className="max-w-2xl text-balance text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-[3.25rem]">
-          The rewards you&apos;re leaving on the table, every single week.
+          See the everyday rewards value you may be missing.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
           Many people use debit out of habit for everyday spending. Drift turns
@@ -36,7 +36,7 @@ export default function HomePage() {
       <TrustNotice />
 
       <footer className="border-t border-border pt-6 text-xs text-subtle">
-        Built as a take-home prototype. Uses static mock data — no live
+        Built as a take-home prototype. Uses static mock data, no live
         financial APIs.
       </footer>
     </main>
@@ -46,7 +46,7 @@ export default function HomePage() {
 function HowItWorksStep({ title, body }: { title: string; body: string }) {
   return (
     <div className="surface-card p-5">
-      {/* A short gold rule instead of a numbered badge — reads as editorial,
+      {/* A short gold rule instead of a numbered badge. Reads as editorial,
           not a templated step counter. */}
       <span aria-hidden className="block h-px w-7 bg-accent/70" />
       <p className="mt-4 text-sm font-medium text-foreground">{title}</p>

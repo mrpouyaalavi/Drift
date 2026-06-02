@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Drift — Daily Spend Optimizer",
+  title: "Drift: Daily Spend Optimizer",
   description:
     "See the annual rewards value you may be missing by spending on debit instead of an eligible rewards card.",
 };

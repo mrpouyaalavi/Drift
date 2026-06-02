@@ -56,7 +56,7 @@ export function monthlyToAnnual(monthly: MonthlySpending): SpendingSummary {
 }
 
 // Debit earns nothing, so the "you'd miss this on debit" figure is just the
-// best card's net return. Floor at zero — a fee-heavy card isn't a saving.
+// best card's net return. Floor at zero, since a fee-heavy card isn't a saving.
 export function missedValueOnDebit(best: CardRewardEstimate): number {
   return Math.max(0, best.netAnnualRewards);
 }

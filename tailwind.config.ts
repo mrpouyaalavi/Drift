@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 
 /**
  * Tokens aligned to the Open / Open.money design-system reference
- * (Design System Reference [For Intern].fig — Style Guide: Colour & Graphics).
+ * (Design System Reference [For Intern].fig, Style Guide: Colour & Graphics).
  *
  * Pure-black background, near-black surfaces, brand gold accent, and a hotter
  * orange used for "missed value" emphasis (mirrors the system's savings motif).
@@ -33,7 +33,7 @@ const config: Config = {
         primaryMuted: "#5A4326",
         accent: "#F2AC59", // alias of primary (brand gold)
         accentHover: "#F6BD73", // brighter gold for hover
-        emphasis: "#FD6422", // hot orange — "missed / net benefit" motif
+        emphasis: "#FD6422", // hot orange for the "missed / net benefit" moment
 
         brand: {
           200: "#F7C380",

@@ -1,4 +1,4 @@
-// Five everyday categories — enough to be useful without drowning the user
+// Five everyday categories: enough to be useful without drowning the user
 // in options.
 export type SpendingCategory =
   | "groceries"
