@@ -2,6 +2,7 @@
   "name": "drift",
   "version": "0.1.0",
   "private": true,
+  "description": "Drift — Daily Spend Optimizer: an educational prototype estimating the rewards value of routing everyday spend through a rewards card instead of debit.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

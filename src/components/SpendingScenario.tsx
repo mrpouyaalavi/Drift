@@ -117,6 +117,7 @@ export function SpendingScenario() {
           <StatCard
             label="Est. annual rewards"
             value={formatAUD(Math.max(0, view.best.grossAnnualRewards))}
+            hint="Gross estimated rewards value, before the annual fee."
             tone="accent"
           />
           <StatCard

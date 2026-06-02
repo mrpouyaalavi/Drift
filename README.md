@@ -7,6 +7,11 @@
 Built as a take-home for the Software Engineer Intern application at
 Open / Open Home Loans.
 
+- **Project type:** B — New Product Feature
+- **Brief:** 1C — Daily Spend Optimizer
+- **Demo:** _deployment URL to be added (Vercel)_
+- **Walkthrough:** [`WALKTHROUGH.md`](./WALKTHROUGH.md)
+
 ---
 
 ## Problem
@@ -79,6 +84,23 @@ scattered as one-off hex through JSX.
 - Tailwind CSS
 - React 19 client components for the interactive section
 - No backend, no database, no API routes, no auth, no external UI library
+
+## AI-native workflow
+
+AI tooling was used as an accelerator throughout, with all decisions and
+validation kept under my control:
+
+- **Ideation** — pressure-testing scope so the prototype stays focused on one
+  problem (Brief 1C) rather than sprawling.
+- **Implementation** — scaffolding components, the pure calculation helpers,
+  and Tailwind token wiring, which I reviewed and adjusted.
+- **QA** — sweeping for stray colours, unclear labels, type issues, and
+  responsiveness gaps; I verified each fix against `tsc` and `next build`.
+- **Documentation** — drafting this README and the walkthrough, which I edited
+  for accuracy and tone.
+
+The product framing, the calculation model, the wording of financial claims,
+and the final sign-off on every change are mine.
 
 ## Running locally
 
@@ -169,6 +191,15 @@ and Target Market Determination before applying.
   scenario stats.
 - **Tests** — `vitest` unit tests around `rewards.ts` (it's intentionally
   pure to make this easy).
+
+## Submission checklist
+
+- [x] Working feature (interactive Daily Spend Optimizer)
+- [x] GitHub repository
+- [x] Written walkthrough ([`WALKTHROUGH.md`](./WALKTHROUGH.md))
+- [x] Runs locally with `npm install` && `npm run dev`
+- [x] Clean `npm run build`
+- [ ] Live demo URL (deploy to Vercel, then add above)
 
 ## Note
 
