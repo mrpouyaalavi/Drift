@@ -4,7 +4,7 @@ Drift is a financial decision-support web app that helps users model spending
 habits, compare reward scenarios, and estimate annual net benefit across
 spending categories.
 
-**Live demo:** [drift-daily-spend-optimizer.vercel.app](https://drift-daily-spend-optimizer.vercel.app) _(update with your deployed URL)_
+**Live demo:** [drift-daily-spend-optimizer.vercel.app](https://drift-daily-spend-optimizer.vercel.app)
 
 ## Screenshots
 
@@ -18,7 +18,7 @@ spending categories.
 
 ## Why I built it
 
-Most people have at least one rewards card sitting in their wallet but still
+Most people have at least one rewards card sitting in their wallet, but still
 reach for debit out of habit. The rewards left on the table are real money,
 but they're invisible — nothing in the moment puts a number on them, so the
 habit never changes. I wanted to build something that turns a vague "I should
@@ -41,7 +41,7 @@ spend categories and immediately sees:
 
 - their monthly and annual spend
 - the estimated annual rewards value the best-matched card would earn
-- the **net benefit**, which is rewards after the card's annual fee
+- the **net benefit**, which is the rewards after the card's annual fee
 - a category-level breakdown showing where the biggest opportunity is
 - a side-by-side ranking of sample cards by **net** annual rewards
 
@@ -155,7 +155,7 @@ src/
 - CSV or bank-feed import, so spend doesn't have to be estimated by hand.
 - A real, periodically refreshed card registry behind the existing typed
   schema instead of three sample cards.
-- A sensitivity view showing how the recommendation shifts as points value
+- A sensitivity view showing how the recommendation shifts as the point value
   moves between roughly 0.5 and 2 cents per point.
 - Charts for the category breakdown and "what if I shifted X% of my spend"
   projections.
