@@ -134,7 +134,7 @@ export function SpendingScenario() {
           payoff of the whole exercise. */}
       <section className="surface-selected mb-12 rounded-3xl p-6 sm:p-8">
         <div className="mb-3 flex items-center gap-2">
-          <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-caption text-accent">
+          <span className="whitespace-nowrap rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-caption text-accent">
             Best match
           </span>
           <span className="text-xs text-muted">
@@ -221,7 +221,7 @@ export function SpendingScenario() {
                       {est.card.name}
                     </h3>
                     {i === 0 && (
-                      <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-caption text-accent">
+                      <span className="whitespace-nowrap rounded-full bg-accent/15 px-2 py-0.5 text-[10px] uppercase tracking-caption text-accent">
                         Best match
                       </span>
                     )}

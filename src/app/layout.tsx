@@ -1,10 +1,27 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteUrl = "https://drift-daily-spend-optimizer.vercel.app";
+const title = "Drift — Daily Spend Optimizer";
+const description =
+  "A financial decision-support app for modelling spending scenarios and annual net benefit.";
+
 export const metadata: Metadata = {
-  title: "Drift: Daily Spend Optimizer",
-  description:
-    "See the annual rewards value you may be missing by spending on debit instead of an eligible rewards card.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: "Drift",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({

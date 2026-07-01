@@ -1,11 +1,8 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Tokens aligned to the Open / Open.money design-system reference
- * (Design System Reference [For Intern].fig, Style Guide: Colour & Graphics).
- *
- * Pure-black background, near-black surfaces, brand gold accent, and a hotter
- * orange used for "missed value" emphasis (mirrors the system's savings motif).
+ * Design tokens for Drift's dark fintech aesthetic: near-black surfaces, a
+ * brand gold accent, and a hotter orange reserved for "missed value" emphasis.
  */
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],

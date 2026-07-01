@@ -1,3 +1,4 @@
+import { HowItsCalculated } from "@/components/HowItsCalculated";
 import { SpendingScenario } from "@/components/SpendingScenario";
 import { TrustNotice } from "@/components/TrustNotice";
 
@@ -33,11 +34,13 @@ export default function HomePage() {
 
       <SpendingScenario />
 
+      <HowItsCalculated />
+
       <TrustNotice />
 
       <footer className="border-t border-border pt-6 text-xs text-subtle">
-        Built as a take-home prototype. Uses static mock data, no live
-        financial APIs.
+        This tool uses simplified assumptions and mock data for demonstration
+        purposes only. It is not financial advice.
       </footer>
     </main>
   );
