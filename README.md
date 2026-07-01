@@ -8,15 +8,13 @@ spending categories.
 
 ## Screenshots
 
-_Add a screenshot or short screen recording of the app here once deployed —
-the hero, the interactive scenario, and the card comparison are good shots to
-include._
+| Hero | Adjust spending |
+|:---:|:---:|
+| ![Hero section](./docs/screenshots/hero.png) | ![Spending scenario sliders](./docs/screenshots/adjust-spending.png) |
 
-```
-docs/screenshot-hero.png
-docs/screenshot-scenario.png
-docs/screenshot-comparison.png
-```
+| Card comparison |
+|:---:|
+| ![Card comparison ranking](./docs/screenshots/comparison.png) |
 
 ## Why I built it
 
