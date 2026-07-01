@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const siteUrl = "https://drift-daily-spend-optimizer.vercel.app";
-const title = "Drift — Daily Spend Optimizer";
+const title = "Drift - Daily Spend Optimizer";
 const description =
   "A financial decision-support app for modelling spending scenarios and annual net benefit.";
 
