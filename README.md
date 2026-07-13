@@ -10,7 +10,7 @@ Model everyday spending, compare sample rewards-card scenarios, and estimate ann
 [![Deployed on Vercel](https://img.shields.io/badge/deployed_on-Vercel-black?logo=vercel)](https://vercel.com/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
-**Live demo:** [drift-daily-spend-optimizer.vercel.app](https://drift-perkycoders.vercel.app)
+**Live demo:** [drift-perkycoders.vercel.app](https://drift-perkycoders.vercel.app)
 
 > ⚠️ **Not financial advice.** Drift uses mocked, sample card data and simplified assumptions purely to demonstrate a decision-support model. It does not recommend real financial products. See [Disclaimer](#disclaimer).
 
