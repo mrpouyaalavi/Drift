@@ -10,7 +10,7 @@ Model everyday spending, compare sample rewards-card scenarios, and estimate ann
 [![Deployed on Vercel](https://img.shields.io/badge/deployed_on-Vercel-black?logo=vercel)](https://vercel.com/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
-**Live demo:** [drift-daily-spend-optimizer.vercel.app](https://drift-daily-spend-optimizer.vercel.app)
+**Live demo:** [drift-daily-spend-optimizer.vercel.app](https://drift-perkycoders.vercel.app)
 
 > ⚠️ **Not financial advice.** Drift uses mocked, sample card data and simplified assumptions purely to demonstrate a decision-support model. It does not recommend real financial products. See [Disclaimer](#disclaimer).
 
@@ -157,4 +157,25 @@ src/
 
 ---
 
-Originally developed as a time-boxed product engineering exercise and later refined as a portfolio project.
+<div align="center">
+
+### `> ping --author`
+
+```text
+> Target     : Pouya Alavi Naeini — Software Engineer | Applied AI/ML
+> University : Macquarie University, Sydney, NSW
+> Major      : B.IT — Artificial Intelligence & Web/App Development
+> Status     : [●] ONLINE — open to grad & junior opportunities
+```
+
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-EE4C2C?style=for-the-badge&logo=linkedin&logoColor=ffffff&labelColor=0f172a)](https://www.linkedin.com/in/pouya-alavi/)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-F7931E?style=for-the-badge&logo=github&logoColor=ffffff&labelColor=0f172a)](https://github.com/mrpouyaalavi)
+[![Email](https://img.shields.io/badge/Email-Contact-f59e0b?style=for-the-badge&logo=gmail&logoColor=09090b&labelColor=0f172a)](mailto:pouya@pouyaalavi.dev)
+
+<br/>
+
+*Originally developed as a time-boxed product engineering exercise and later refined as a portfolio project.*
+
+<div/>
+
